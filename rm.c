@@ -172,7 +172,7 @@ static int DeleteEntry(const char* sEntry) {
   // In the interactive-mode, the user has to confirm whether to delete the current directory entry.
   //
   if (IsInteractive) {
-    printf("rm: Do you really want to delete '%s' (y/N)? ", sEntry);
+    fprintf(stderr, "rm: Do you really want to delete '%s' (y/N)? ", sEntry);
     r = GetConfirmation();
     if (r == 0) {
       return 0;

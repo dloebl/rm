@@ -1,5 +1,7 @@
 # rm
-Simple implementation of the rm utility in C. Should conform to the POSIX standard.
+Simple implementation of the rm utility in C for unix-like systems. 
+Can delete directory entries.
+Should conform to the POSIX standard.
 
 
 Note:

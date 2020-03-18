@@ -123,10 +123,14 @@ static int DeleteDir(const char* sDir) {
   struct dirent* pDirEntry;
   char*          pPath;
 
+  r    = -1;
   pDir = opendir(sDir);
   if (pDir != NULL) {
     LenDirPath            = strlen(sDir);
     pPath                 = malloc(LenDirPath + 1); // One additional byte is needed ('/')
+    if (pPath == NULL) {
+      return -1;    
+    }
     pPath[LenDirPath]     = '/';                    // Add directory delimiter at the end
     memcpy(pPath, sDir, LenDirPath);                // Copy rest of the name of the directory (Note: String is not nul-terminated yet) */
     //
@@ -136,21 +140,20 @@ static int DeleteDir(const char* sDir) {
       //
       // Skip both the directory entry "." and ".."
       //
-      if (strcmp(pDirEntry->d_name, ".") == 0 || strcmp(pDirEntry->d_name, "..") == 0) {
-        continue;      
+      if (strcmp(pDirEntry->d_name, ".") != 0 && strcmp(pDirEntry->d_name, "..") != 0) {     
+        //
+        // Build the actual path of the directory entry to be deleted
+        //
+        LenEntry = strlen(pDirEntry->d_name);
+        pPath    = realloc(pPath, LenDirPath + 1 + LenEntry + 1); // Two addiontal bytes needed: For '/' and the terminating 0
+        if (pPath == NULL) {
+          return -1;      
+        }
+        memcpy(pPath + LenDirPath + 1, pDirEntry->d_name, LenEntry + 1);
+        r = DeleteEntry(pPath);
       }
-      //
-      // Build the actual path of the directory entry to be deleted
-      //
-      LenEntry = strlen(pDirEntry->d_name);
-      pPath    = realloc(pPath, LenDirPath + 1 + LenEntry + 1); // Two addiontal bytes needed: For '/' and the terminating 0
-      if (pPath == NULL) {
-        return -1;      
-      }
-      memcpy(pPath + LenDirPath + 1, pDirEntry->d_name, LenEntry + 1);
-      r = DeleteEntry(pPath);
     }
-    r = rmdir(sDir);                                            // Delete the directory itself at last
+    r = rmdir(sDir);                                             // Delete the directory itself at last
     free(pPath);
     closedir(pDir);
   }

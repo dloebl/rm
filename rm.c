@@ -37,6 +37,31 @@ static int  ParseArgs       (int NumArgs, const char** pArgs);
 static int  DeleteDir       (const char* sDir);
 static int  DeleteEntry     (const char* sEntry);
 
+int main(int NumArgs, const char** pArgs) {
+  int i;
+  int r;
+  int Return;
+
+  Return = 0;
+  i      = ParseArgs(NumArgs, pArgs); // Parse all arguments provided. This function returns the index of the first entry to be deleted.
+  if (i) {
+    //
+    // Delete every entry specified
+    //
+    for (; i < NumArgs; ++i) {
+      r = DeleteEntry(pArgs[i]);
+      if (r == -1 && IsForced == 0) {
+        fprintf(stderr, "rm: Failed to delete '%s'.\n", pArgs[i]);
+        Return = 1;
+      }
+    }    
+  } else if (IsForced == 0) {   // "rm -f" is actually allowed, catch this case here.
+    fputs(INVALID_SYNTAX_MSG, stderr);
+    Return = 1;
+  }
+  return Return;
+}
+
 /***
 * Description: Checks whether the user has confirmed the current operation (with 'y' or 'Y').
 *
@@ -195,29 +220,4 @@ static int DeleteEntry(const char* sEntry) {
     }
   }
   return r;
-}
-
-int main(int NumArgs, const char** pArgs) {
-  int i;
-  int r;
-  int Return;
-
-  Return = 0;
-  i      = ParseArgs(NumArgs, pArgs); // Parse all arguments provided. This function returns the index of the first entry to be deleted.
-  if (i) {
-    //
-    // Delete every entry specified
-    //
-    for (; i < NumArgs; ++i) {
-      r = DeleteEntry(pArgs[i]);
-      if (r == -1 && IsForced == 0) {
-        fprintf(stderr, "rm: Failed to delete '%s'.\n", pArgs[i]);
-        Return = 1;
-      }
-    }    
-  } else if (IsForced == 0) {   // "rm -f" is actually allowed, catch this case here.
-    fputs(INVALID_SYNTAX_MSG, stderr);
-    Return = 1;
-  }
-  return Return;
 }

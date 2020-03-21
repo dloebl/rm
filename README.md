@@ -9,7 +9,7 @@ Should conform to the POSIX standard.
 
 ## Options
 * -f 
-  * Forced mode, errors will be ignored. Will not prompt for any confimation from the user.
+  * Forced mode, errors will be ignored. Will not prompt for any confirmation from the user.
 * -i
   * Interactive mode. Will prompt for confirmation from the user on every single item to be deleted.
 * -r *or* -R

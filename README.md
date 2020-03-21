@@ -1,7 +1,8 @@
 # rm
-Simple implementation of the rm utility in C for unix-like systems. 
-Can delete directory entries.
-Should conform to the POSIX standard.
+Command-line utility that can delete directory entries.
+Written in C, requires an at least partly POSIX conforming operating system underneath.
+
+The goal of this tool is, to fulfill the corresponding POSIX standard as good as possible, without adding more features.
 
 ## Sytax
 * rm [-iRr] file...
@@ -13,7 +14,7 @@ Should conform to the POSIX standard.
 * -i
   * Interactive mode. Will prompt for confirmation from the user on every single item to be deleted.
 * -r *or* -R
-  * Recursive mode. If set, it is possible to delete whole directories.
+  * Recursive mode. When set, it is possible to delete whole directories.
 
 ## Notes
 Does NOT include any security features (e.g. preserve-root).

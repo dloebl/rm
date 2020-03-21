@@ -23,6 +23,7 @@
 #define IS_DIR(mode)        ((mode & S_IFMT) == S_IFDIR)
 //
 // Static variables
+//   Notes: Here used to save the set options (-r, -R, -i or -f).
 //
 static int IsRecursive;
 static int IsInteractive;
@@ -37,6 +38,11 @@ static int  ParseArgs       (int NumArgs, const char** pArgs);
 static int  DeleteDir       (const char* sDir);
 static int  DeleteEntry     (const char* sEntry);
 
+/***
+* Description: User code entry point.
+*
+* Returns:     EXIT_SUCCESS on success or EXIT_FAILURE on error
+***/
 int main(int NumArgs, const char** pArgs) {
   int i;
   int r;

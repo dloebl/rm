@@ -42,7 +42,7 @@ int main(int NumArgs, const char** pArgs) {
   int r;
   int Return;
 
-  Return = 0;
+  Return = EXIT_SUCCESS;
   i      = ParseArgs(NumArgs, pArgs); // Parse all arguments provided. This function returns the index of the first entry to be deleted.
   if (i) {
     //
@@ -52,12 +52,12 @@ int main(int NumArgs, const char** pArgs) {
       r = DeleteEntry(pArgs[i]);
       if (r == -1 && IsForced == 0) {
         fprintf(stderr, "rm: Failed to delete '%s'.\n", pArgs[i]);
-        Return = 1;
+        Return = EXIT_FAILURE;
       }
     }    
   } else if (IsForced == 0) {   // "rm -f" is actually allowed, catch this case here.
     fputs(INVALID_SYNTAX_MSG, stderr);
-    Return = 1;
+    Return = EXIT_FAILURE;
   }
   return Return;
 }

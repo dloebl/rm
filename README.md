@@ -1,5 +1,6 @@
 # rm
 rm is a command-line utility that can delete directory entries.
+
 Written in C, requires an at least partly POSIX conforming operating system underneath.
 
 The goal of this tool is, to fulfill the corresponding POSIX standard as good as possible, without adding more features.

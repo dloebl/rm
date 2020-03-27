@@ -74,7 +74,7 @@ int main(int NumArgs, const char** pArgs) {
 * Returns:     1 on success or 0 on error
 ***/
 static int GetConfirmation(void) {
-  char c;
+  int  c;
   int  r;
 
   c = getchar();

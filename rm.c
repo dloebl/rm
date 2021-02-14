@@ -31,7 +31,7 @@ static int IsForced;
 //
 // Forward declarations
 //
-static int  GetConfirmation (void);
+static int  GetConfirmation  (void);
 static void ParseOption     (const char* sOption);
 static int  DeleteEntry     (const char* sFile);
 static int  ParseArgs       (int NumArgs, const char** pArgs);
@@ -109,7 +109,7 @@ static void ParseOption(const char* sOption) {
       IsInteractive = 1;
       IsForced      = 0;
       break;
-    case 'r': // Falltrough
+    case 'r': // Fallthrough
     case 'R':
       IsRecursive   = 1;
     }
@@ -178,7 +178,7 @@ static int DeleteDir(const char* sDir) {
         // Build the actual path of the directory entry to be deleted
         //
         LenEntry = strlen(pDirEntry->d_name);
-        pPath    = realloc(pPath, LenDirPath + 1 + LenEntry + 1); // Two addiontal bytes needed: For '/' and the terminating 0
+        pPath    = realloc(pPath, LenDirPath + 1 + LenEntry + 1); // Two additional bytes needed: For '/' and the terminating 0
         if (pPath == NULL) {
           return -1;      
         }

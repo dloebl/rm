@@ -5,7 +5,7 @@ Written in C, requires an at least partly POSIX conforming operating system unde
 
 The goal of this tool is, to fulfill the corresponding POSIX standard as good as possible, without adding more features.
 
-## Sytax
+## Syntax
 * rm [-iRr] file...
 * rm -f [-iRr] [file...]
 
